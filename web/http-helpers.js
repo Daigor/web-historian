@@ -1,6 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var archive = require('../helpers/archive-helpers');
+var helpers = require('./request-handler.js');
 
 exports.headers = headers = {
   "access-control-allow-origin": "*",
@@ -14,6 +15,14 @@ exports.serveAssets = function(res, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
+  fs.readFile(archive.paths.siteAssets + "/index.html", 'utf-8', function(err, data) {
+    if(err) {
+      throw err;
+    }
+    console.log(data);
+    res.writeHead(200, exports.headers);
+    res.end(data);
+  })
 };
 
 
