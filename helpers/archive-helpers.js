@@ -57,6 +57,7 @@ exports.addUrlToList = function(url, callback){
 };
 
 exports.isUrlArchived = function(callback){
+  
 };
 
 exports.downloadUrls = function(callback){
