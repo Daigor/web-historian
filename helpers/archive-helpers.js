@@ -37,12 +37,13 @@ exports.readListOfUrls = function(callback){
 
 exports.isUrlInList = function(url, callback){
   exports.readListOfUrls(function(urls) {
+    var isInList = false;
     for(var i = 0; i < urls.length; i++) {
       if(urls[i] === url) {
-        callback(true);
+        isInList = true;
       }
     }
-    callback(false);
+    callback(isInList);
   });
 };
 
@@ -51,7 +52,7 @@ exports.addUrlToList = function(url, callback){
     if(err){
       throw err
     }
-    callback('works');
+    callback();
   });
 };
 
@@ -60,12 +61,13 @@ exports.isUrlArchived = function(url, callback){
     if(err) {
       throw err;
     }
+    var isInUrl = false;
     for(var i = 0; i < data.length; i++) {
       if(url === data[i]) {
-        callback(true);
+        isInUrl = true;
       }
     }
-    callback(false);
+    callback(isInUrl);
   })
 };
 
