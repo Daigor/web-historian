@@ -25,7 +25,7 @@ var checkForAsset = function(url, res, req) {
       if(req.method === "GET") {
         res.writeHead(404, assets.headers);
         res.end();
-      } else {
+      } else if(req.method === "POST"){
         //add it to the list 
         archive.addUrlToList(url, function(){
         });
@@ -39,6 +39,7 @@ var checkForAsset = function(url, res, req) {
 exports.handleRequest = function (req, res) {
   console.log(req.method, "what method is this", req.url, "req.url");
   if(req.method === "GET" && req.url === "/") {
+    console.log("url from inside", req.url);
     assets.serveAssets(res, archive.paths.siteAssets + '/index.html', 200);
   }
 
@@ -55,10 +56,10 @@ exports.handleRequest = function (req, res) {
       dataChunk += chunk;
     });
     req.on('end', function() {
-      //var url = dataChunk.slice(4);
-      var url = JSON.parse(dataChunk);
-      console.log(url.url);
-      checkForAsset(url.url, res, req);
+      var url = dataChunk.slice(4);
+      // var url = JSON.parse(dataChunk);
+      // console.log(url.url);
+      checkForAsset(url, res, req);
     });
   }
 }
